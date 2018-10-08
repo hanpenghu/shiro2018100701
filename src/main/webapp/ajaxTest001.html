@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-3.2.1.min.js"></script>
+</head>
+<body>
+<button id="A1" style="height: 100px;width: 100px" >
+</button>
+        <script type="text/javascript">
+            $("#A1").click(function () {//点击按钮后先alert，再发送ajax
+                alert("年后");
+                var saveData={cangKuNum:"0000",jingBanRenNum:""}
+                $.ajax({
+                    url : "http://127.0.0.1:1080/test1/f2",
+                    type : "POST",
+                    //data : '{"cangKuNum":"123","jingBanRenNum":"321"}',//可用
+                    data:JSON.stringify(saveData),//和上面一行都可用
+                    dataType : "json",
+                    contentType : "text/plain;charset=utf-8",
+                    success:function(d){
+                        //注意得到的d其实是一个js格式JSON对象
+                        alert( "Data Saved: " + JSON.stringify(d));//讲json对象序列化(字符串)输出
+                        alert( "Data Saved: " + d[0]["osDd"]);//拿到js的json对象的数组中的第0个对象的key是osDd的value
+                    }
+                });
+            })
+        </script>
+</body>
+</html>
